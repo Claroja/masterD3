@@ -1,0 +1,31 @@
+<html>
+<body>
+<script src="https://cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
+<svg id=zero width=300 height =300 ></svg>
+<script>
+svg=d3.select('svg')
+svg.append('text')
+	.text('text')
+	.attr("x",25)
+	.attr('y',25)
+	// .attr('text-anchor',"middle")
+	.attr('dx','-.8em')
+	.attr('dy','.35em')
+	
+svg.append('text')
+	.text('text')
+	.attr("x",50)
+	.attr('y',50)
+	.attr('text-anchor',"middle")
+	.attr('dy','.35em')
+	
+svg.append('line')
+	.attr('x1',25)
+	.attr('y1',25)
+	.attr('x2',50)
+	.attr('y2',50)
+	.attr('stroke','black')
+	
+</script>
+</body>
+</html>

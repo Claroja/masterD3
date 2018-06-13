@@ -1,0 +1,53 @@
+<html>
+<style>
+.axis path,
+.axis line{
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+svg {
+	display:inline-block;
+}
+</style>
+<body>
+	<script src="https://cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
+	<script src="./axis.js"></script>
+	<svg id=zero width=300 height =300 >
+	<circle class = 'cirlce'
+             cx    = '0'
+             cy    = '0'
+             r     = '20'
+             fill  = 'red'>
+     </circle>
+	</svg>
+<script type="text/javascript">
+            circle = d3.select('.cirlce');
+
+            circle1 = circle
+            .transition('position')
+            .attr('cx', 57)
+            .ease('bounce')
+			
+			circle2 = circle1
+            .transition('position')
+            .attr('cy', 37)
+			
+			circle3 = circle2
+            .transition('position')
+            .attr('cx', 3)
+            .ease('cubic')
+			
+			circle4 = circle3
+            .transition('position')
+            .attr('cy', 3)
+            .ease('bounce');
+
+</script>
+</body>
+</html>

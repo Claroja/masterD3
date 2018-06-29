@@ -1,0 +1,157 @@
+<html>
+<style>
+</style>
+<body>
+	<script src="https://cdn.bootcss.com/d3/3.5.17/d3.min.js"></script>
+	<!--<script src="./axis.js"></script>-->
+	</svg>
+<script type="text/javascript">
+	//画布大小
+var width = 400;
+var height = 400;
+
+//在 body 里添加一个 SVG 画布   
+var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+var padding = {left:30, right:30, top:20, bottom:20};
+var dataset = [10, 30, 20,];
+//x轴比例尺
+var xScale = d3.scale.ordinal()
+    .domain(d3.range(dataset.length))
+    .rangeRoundBands([0, width - padding.left - padding.right]);
+//y轴比例尺
+var yScale = d3.scale.linear()
+    .domain([0,d3.max(dataset)])
+    .range([height - padding.top - padding.bottom, 0]);
+//定义x轴
+var xAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient("bottom");
+        
+//定义y轴
+var yAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient("left");
+	
+	
+//矩形之间的空白
+var rectPadding = 4;
+//合并的数据格式
+//添加矩形元素
+// data=[[[10,2],[20,1]],[[30,0],[10,2]],[[20,1],[30,0]]]
+// var rects = svg.selectAll(".MyRect")
+//         .data(data)
+//         .enter()
+//         .append("rect")
+//         .attr("class","MyRect")
+//         .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+//         .attr("x", function(d){
+//             return xScale(d[0][1]) + rectPadding/2;
+//         } )
+//         .attr("y",function(d){
+//             return yScale(d[0][0]);
+//         })
+//         .attr("width", xScale.rangeBand() - rectPadding )
+//         .attr("height", function(d){
+//             return height - padding.top - padding.bottom - yScale(d[0][0]);
+//         })
+// 		.transition()
+// 		.duration(2000)
+// 		.attr("x", function(d){
+// 			return xScale(d[1][1]) + rectPadding/2;
+// 		} )
+// 		.attr("y",function(d){
+// 			return yScale(d[1][0]);
+// 		})
+// 		.attr("width", xScale.rangeBand() - rectPadding )
+// 		.attr("height", function(d){
+// 			return height - padding.top - padding.bottom - yScale(d[1][0]);
+// 		})
+
+//分开数据格式
+// data1=[[10,2],[30,0],[20,1]]
+// data2=[[20,1],[10,2],[30,0]]
+// var rects = svg.selectAll(".MyRect")
+//         .data(data1)
+//         .enter()
+//         .append("rect")
+//         .attr("class","MyRect")
+//         .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+//         .attr("x", function(d){
+//             return xScale(d[1]) + rectPadding/2;
+//         } )
+//         .attr("y",function(d){
+//             return yScale(d[0]);
+//         })
+//         .attr("width", xScale.rangeBand() - rectPadding )
+//         .attr("height", function(d){
+//             return height - padding.top - padding.bottom - yScale(d[0]);
+//         })
+// 
+// 		
+// function ani (rect){
+// 	for (var i=1;i<2;i++){
+// 		rect
+// 		.data(data2)
+// 		.transition()
+// 		.duration(2500)
+// 		.attr("class","MyRect")
+// 		.attr("transform","translate(" + padding.left + "," + padding.top + ")")
+// 		.attr("x", function(d){
+// 			return xScale(d[1]) + rectPadding/2;
+// 		} )
+// 		.attr("y",function(d){
+// 			return yScale(d[0]);
+// 		})
+// 		.attr("width", xScale.rangeBand() - rectPadding )
+// 		.attr("height", function(d){
+// 			return height - padding.top - padding.bottom - yScale(d[0]);
+// 		})
+// 	}	
+// }
+// ani(rects);
+
+data=[[[10,2],[20,1],[5,2]],[[30,0],[10,2],[30,0]],[[20,1],[30,0],[10,1]]]
+var rects = svg.selectAll(".MyRect")
+function ani (rect,data){
+	rect=rect  //赋值之后rect的状态就变了,如果没有则还是原来的状态
+	.data(data)
+	.enter()
+	.append("rect")
+	.attr("class","MyRect")
+	.attr("transform","translate(" + padding.left + "," + padding.top + ")")
+	.attr("x", function(d){
+		return xScale(d[0][1]) + rectPadding/2;
+	} )
+	.attr("y",function(d){
+		return yScale(d[0][0]);
+	})
+	.attr("width", xScale.rangeBand() - rectPadding )
+	.attr("height", function(d){
+		return height - padding.top - padding.bottom - yScale(d[0][0]);
+	})
+	for (var i=1;i<data[0].length;i++){
+		console.log(i)
+		rect=rect //赋值之后rect的状态就变了,如果不赋值,则从原始的状态直接过度到最后一个状态
+		// .data(data)
+		.transition()
+		.duration(2000)
+		.attr("x", function(d){
+			return xScale(d[i][1]) + rectPadding/2;
+		} )
+		.attr("y",function(d){
+			return yScale(d[i][0]);
+		})
+		.attr("width", xScale.rangeBand() - rectPadding )
+		.attr("height", function(d){
+			return height - padding.top - padding.bottom - yScale(d[i][0]);
+		})
+	}	
+}
+ani(rects,data);
+
+</script>
+</body>
+</html>

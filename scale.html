@@ -1,0 +1,16 @@
+<html>
+<body>
+<script src="https://cdn.bootcss.com/d3/4.13.0/d3.min.js"></script>
+<svg id=zero width=300 height =300 ></svg>
+<script>
+	scale_l = d3.scaleLinear().domain([1,5]).range([0,100])
+    scale_b = d3.scaleBand().domain([1,2,3,4]).range([0,100])
+    scale_o = d3.scaleOrdinal().domain(['a', 'b', 'c']).range([10, 20, 30])
+    scale_q = d3.scaleQuantize().domain([0, 10]).range(['s', 'm', 'l'])
+    scale_t = d3.scaleTime()
+              .domain([new Date(2018, 0, 1, 0), new Date(2018, 0, 1, 2)])
+              .range([0,100])
+    color = d3.scaleOrdinal(d3.schemeCategory10)
+</script>
+</body>
+</html

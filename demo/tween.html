@@ -29,20 +29,7 @@ text=text.transition()
         this.textContent = i(t);
     };
 });
-text=text.transition()
-    .duration(2000)
-    .attr("x",75)
-	.attr('y',75)
-    .text(300)
-    .tween("text", function() {
-    var i = d3.interpolateRound(200, 300);
-    return function(t) {
-        this.textContent = i(t);
-    };
-});
-//    
-	
-	
+
 </script>
 </body>
 </html>

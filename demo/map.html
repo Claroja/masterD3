@@ -17,13 +17,13 @@
 	var projection = d3.geo.mercator()
 		.center([107, 31])  //(坐标)设置地图中心位置
 		.scale(850) //设定缩放比例
-    		.translate([width/2, height/2]); //平移
+        .translate([width/2, height/2]); //平移
 	var path = d3.geo.path()
 		.projection(projection); //创建地图路径
 	var color = d3.scale.category20();  //创建颜色
 	
 	d3.json("../temp/china.geojson", function(root) { //传入地图数据
-		svg.selectAll("path")
+		svg.selectAll("path")  //每一个path是一个省份
 			.data(root.features)
 			.enter()
 			.append("path")
@@ -33,6 +33,7 @@
 				return color(i);
 			})
 			.attr("d", path )
+            .text(d=>d.properties.name)
 			.on("mouseover",function(d,i){  //鼠标悬停变黄色
 				d3.select(this)
 				.attr("fill","yellow");
@@ -41,6 +42,23 @@
 			d3.select(this)
 			    .attr("fill",color(i));
 			});
+        
+   		svg.selectAll("text")  //添加省份名称
+      		.data(root.features)
+      		.enter()
+      		.append("text")
+            .attr("transform",function(d,i){
+      			 if(d.properties.id =="20"){ //河北
+      				return "translate("+(path.centroid(d)[0]-20)+","+ (path.centroid(d)[1]+20)+")";
+                 }    			
+      				return "translate("+(path.centroid(d)[0]-10)+","+ path.centroid(d)[1]+")";
+                }
+            )
+            
+            
+            .text(d=>d.properties.name)
+                  
+                  
 	});
 </script>
 </body></html>
